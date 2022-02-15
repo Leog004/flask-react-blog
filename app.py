@@ -6,7 +6,7 @@ from flask_cors import CORS, cross_origin
 from resources.blog import Blog, BlogList
 
 app = Flask(__name__, static_folder='my-app/build', static_url_path='')
-uri = os.environ.get('DATABASE_URL') or 'postgresql://postgres:Stevenash1!@localhost/flask_blog'
+uri = os.environ.get('DATABASE_URL')
 if uri.startswith('postgres://'):
     uri = uri.replace('postgres://', 'postgresql://', 1)
 
