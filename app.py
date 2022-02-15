@@ -6,7 +6,7 @@ from flask_cors import CORS, cross_origin
 from resources.blog import Blog, BlogList
 
 app = Flask(__name__, static_folder='my-app/build', static_url_path='')
-uri = os.environ.get('DATABASE_URL')
+uri = os.environ.get('DATABASE_URL') or 'postgresql://postgres:Stevenash1!@localhost/flask_blog'
 if uri.startswith('postgres://'):
     uri = uri.replace('postgres://', 'postgresql://', 1)
 
@@ -18,14 +18,14 @@ CORS(app)
 api = Api(app)
 
 
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
 @app.route('/')
 @cross_origin()
 def serve():
     return send_from_directory(app.static_folder, 'index.html')
-
-# @app.before_first_request
-# def create_tables():
-#     db.create_all()    
 
 api.add_resource(Blog, '/api/blog/<string:name>') # router configuration for get, create, update, and delete a blog | must conating a string
 api.add_resource(BlogList, '/api/blog') # router configuration for getting all the blogs that we currently have
@@ -34,5 +34,12 @@ api.add_resource(BlogList, '/api/blog') # router configuration for getting all t
 if __name__ == '__main__':
     from db import db
     db.init_app(app)
+    
+    if app.config['DEBUG']:
+        @app.before_first_request
+        def create_tables():
+            db.create_all()
+    
+
     app.run(debug=True)
 
