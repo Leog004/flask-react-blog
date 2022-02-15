@@ -55,7 +55,7 @@ function App() {
         {
           arcticles && arcticles.length > 0 && (
             <div className="py-20">
-              <div className="grid grid-cols-3 gap-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8">
                 {
                   arcticles.map((el) => (
                     <BlogItem editHandle={editHandle} deleteHandle={() => deleteHandle(el.slug)} key={el.title} data={el} />
