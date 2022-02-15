@@ -23,9 +23,9 @@ api = Api(app)
 def serve():
     return send_from_directory(app.static_folder, 'index.html')
 
-@app.before_first_request
-def create_tables():
-    db.create_all()    
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()    
 
 api.add_resource(Blog, '/api/blog/<string:name>') # router configuration for get, create, update, and delete a blog | must conating a string
 api.add_resource(BlogList, '/api/blog') # router configuration for getting all the blogs that we currently have
