@@ -6,7 +6,7 @@ from flask_cors import CORS, cross_origin
 from resources.blog import Blog, BlogList
 
 app = Flask(__name__, static_folder='my-app/build', static_url_path='')
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL','postgresql://postgres:Stevenash1!@localhost/flask_blog')
+app.config['SQLALCHEMY_DATABASE_URI'] = environ.get('DATABASE_URL') or 'postgresql://postgres:Stevenash1!@localhost/flask_blog'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.secret_key = 'flask_blog'
@@ -14,9 +14,9 @@ CORS(app)
 api = Api(app)
 
 
-# @app.before_first_request
-# def create_tables():
-#     db.create_all()
+@app.before_first_request
+def create_tables():
+    db.create_all()
 
 @app.route('/')
 @cross_origin()
