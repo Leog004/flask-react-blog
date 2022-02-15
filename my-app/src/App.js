@@ -1,25 +1,73 @@
-import './App.css';
-import Deploy from './Components/Deploy';
-import {useState, useEffect} from 'react'
-
+import axios from "axios";
+import React,{useEffect, useState} from "react";
+import { BlogItem } from "./components";
+import Header from './components/Header';
 
 function App() {
 
-  const [state, setState] = useState({});
+  const [arcticles, setArcticles] = useState();
 
   useEffect(() => {
-    fetch('/api').then(response => {
-      if(response.status === 200){
-        return response.json()
-      } 
-    }).then(data => setState(data))
-    .then(error => console.log(error))
-  },[])
+    getBlogs()
+  }, []);
 
+  const getBlogs = async () => {
+    const data = await axios.get('/api/blog')
+    const {blogs} = data.data 
+    setArcticles(blogs)
+
+  }
+
+  const deleteHandle = async (e) => {
+    await axios.delete(`/api/blog/${e}`)
+    const updatedBlogs = arcticles.filter(el => el.slug !== e);
+    setArcticles(updatedBlogs)
+  }
+
+  const editHandle = async (arr) => {
+    let editText = arr[0].text
+    let editImageUrl = arr[0].imageUrl
+    let editTitle = arr[0].title
+
+    const update = await axios.put(`/api/blog/${arr[0].slug}`, {"title": editTitle, "text": editText, "imageUrl" : editImageUrl})
+    
+    const {data, oldSlug} = update.data
+
+    // console.log(update.data.oldSlug);
+    // console.log(update.data.data);
+    
+    const updatedBlog = arcticles.map(el => {
+      if(el.slug === oldSlug){
+        return el = data
+      }
+      return el;
+    })
+
+    setArcticles(updatedBlog)
+
+   
+  }
+  
   return (
-    <div className="App">
-      <Deploy prop={state} />
-    </div>
+    <main>
+    <Header/>
+      <section className="w-full min-h-screen h-full max-w-5xl mx-auto">
+        {
+          arcticles && arcticles.length > 0 && (
+            <div className="py-20">
+              <div className="grid grid-cols-3 gap-y-8">
+                {
+                  arcticles.map((el) => (
+                    <BlogItem editHandle={editHandle} deleteHandle={() => deleteHandle(el.slug)} key={el.title} data={el} />
+                  ))
+                }
+              </div>   
+            </div>
+          )
+        }
+
+      </section>
+    </main>
   );
 }
 
