@@ -70,25 +70,24 @@ export default function ModalForm({setModalVisable}) {
             <div className="mt-2">
             <div className="flex flex-col">
                 <div className="p-6 mt-8">         
-                    <div className="flex flex-col mb-4">
-                        <div className="relative">
-                            <label htmlFor="title" className="text-sm font-semibold">Title</label>
-                            <input onChange={(e) => setTitle(e.target.value)} value={title} placeholder="Enter a title" type="text" id="title" name='title' className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"/>
+                        <div className="flex flex-col mb-4">
+                            <div className="relative">
+                                <label htmlFor="title" className="text-sm font-semibold">Title</label>
+                                <input onChange={(e) => setTitle(e.target.value)} value={title} placeholder="Enter a title" type="text" id="title" name='title' className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"/>
+                            </div>
+                        </div>
+                        <div className="flex flex-col gap-y-4">
+                            <div className="flex flex-col">
+                            <label htmlFor="text" className="text-sm font-semibold">Text</label>
+                                <input onChange={(e) => setText(e.target.value)} value={text} placeholder="Enter a short text" type="text" name="text" id="text" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"/>
+                            </div>
+                            <div className="flex flex-col">
+                            <label htmlFor="imageUrl" className="text-sm font-semibold mb-2">ImageUrl <br/><span className='sm text-slate-400'>ex: https://miro.medium.com/max/640/1*XthWUtD_NU-VJ7ESA2qX3A.jpeg</span></label>
+                                <input onChange={(e) => setImageUrl(e.target.value)} value={imageUrl} placeholder="Enter a valid image url" type="text" name="imageUrl" id="imageUrl" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"/>
+                            </div>
                         </div>
                     </div>
-                    <div className="flex flex-col mb-4">
-                        <div className="relative">
-                        <label htmlFor="text" className="text-sm font-semibold">Text</label>
-                            <input onChange={(e) => setText(e.target.value)} value={text} placeholder="Enter a short text" type="text" name="text" id="text" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"/>
-                        </div>
-                    </div>
-                    <div className="flex flex-col">
-                      <label htmlFor="imageUrl" className="text-sm font-semibold mb-2">ImageUrl <br/><span className='sm text-slate-400'>ex: https://miro.medium.com/max/640/1*XthWUtD_NU-VJ7ESA2qX3A.jpeg</span></label>
-                        <input onChange={(e) => setImageUrl(e.target.value)} value={imageUrl} placeholder="Enter a valid image url" type="text" name="imageUrl" id="imageUrl" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"/>
-                    </div>
-                    </div>
-            </div>
-            </div>
+                </div>
               
             </div>
           </div>
@@ -104,5 +103,6 @@ export default function ModalForm({setModalVisable}) {
       </div>
     </div>
   </div>
+</div>
     )
 }
